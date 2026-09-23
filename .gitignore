@@ -14,9 +14,6 @@ htmlcov/
 Thumbs.db
 .idea/
 .vscode/
-.claude/
-.codex/
-.agents/
 
 # Secrets and private configuration
 .env
@@ -38,7 +35,7 @@ private/
 **/output/policy_its_*.txt
 /docs/
 
-# Written reports and presentation files stay in the private working copy
+# Local documents
 **/paper/
 **/papers/
 **/slides/
