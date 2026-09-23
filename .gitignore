@@ -1,0 +1,51 @@
+# Environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.nbc
+*.nbi
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.claude/
+.codex/
+.agents/
+
+# Secrets and private configuration
+.env
+.env.*
+config.yaml
+config.yml
+credentials/
+private/
+*.pem
+*.key
+*.log
+*.tmp
+*.swp
+
+# Local inputs and regenerated outputs that are not part of the release
+**/data/
+**/tables/
+**/output/*_log.txt
+**/output/policy_its_*.txt
+/docs/
+
+# Written reports and presentation files stay in the private working copy
+**/paper/
+**/papers/
+**/slides/
+*.tex
+*.bib
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.pdf

@@ -1,0 +1,717 @@
+{
+  "manifest_version": 1,
+  "purpose": "Inventory of external raw inputs required for the published housing and office analyses. Raw datasets are intentionally excluded.",
+  "path_base": "Each input path is relative to its study directory under the public package root.",
+  "snapshot_hash_note": "SHA256 values identify the original local input snapshots. Revised inputs can change analysis outputs.",
+  "acquisition_note": "Source URLs are recorded only where preserved in the local source files. An empty URL list marks a provenance gap, not an unavailable dataset. Obtain missing downloads from the named agency and preserve the schema. Several tidy CSVs require manual normalization because their construction scripts were not preserved.",
+  "validation_note": "check_inputs.py verifies file presence and reports snapshot hash changes. It does not validate CSV schemas, workbook layouts, data quality, or research results.",
+  "studies": {
+    "housing": {
+      "directory": "hk-housing",
+      "required_input_count": 14,
+      "inputs": [
+        {
+          "path": "data/raw/rvd/his_data_4.xls",
+          "description": "Private domestic monthly price indices by class.",
+          "sha256": "da56dd40605c0e883e9fd65387b8d4365afac453dd037713bf25d07900968f7b",
+          "source_agency": "Hong Kong Rating and Valuation Department (RVD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "xls_sheets": [
+            "Monthly  按月",
+            "Quarterly  按季",
+            "Annual  按年"
+          ],
+          "required_sheets": [
+            "Monthly  按月"
+          ],
+          "schema_notes": "Retain the agency workbook layout, sheet names and merged-cell positions. The parser reads positional columns rather than a tidy header row.",
+          "acquisition_notes": "Retrieve the named RVD historical workbook manually. The original download URL was not preserved; retain its original XLS layout."
+        },
+        {
+          "path": "data/raw/rvd/his_data_3.xls",
+          "description": "Private domestic monthly rental indices by class.",
+          "sha256": "d8744e7588fef89b0b7e30c5d318911a22f8ddff2dddd587b3829ffa5a695aa0",
+          "source_agency": "Hong Kong Rating and Valuation Department (RVD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "xls_sheets": [
+            "Monthly  按月",
+            "Quarterly  按季",
+            "Annual  按年"
+          ],
+          "required_sheets": [
+            "Monthly  按月"
+          ],
+          "schema_notes": "Retain the agency workbook layout, sheet names and merged-cell positions. The parser reads positional columns rather than a tidy header row.",
+          "acquisition_notes": "Retrieve the named RVD historical workbook manually. The original download URL was not preserved; retain its original XLS layout."
+        },
+        {
+          "path": "data/raw/rvd/private_domestic.xls",
+          "description": "Annual private domestic completions and year-end stock.",
+          "sha256": "1f1dfd5325bfe0c88d2ad9b4fed1302da676f34c56aca88cc61164efd753be73",
+          "source_agency": "Hong Kong Rating and Valuation Department (RVD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "xls_sheets": [
+            "Completions_落成量",
+            "Stock_總存量",
+            "Vacancy_空置量",
+            "Take-up_入住量"
+          ],
+          "required_sheets": [
+            "Completions_落成量",
+            "Stock_總存量"
+          ],
+          "schema_notes": "Retain the agency workbook layout, sheet names and merged-cell positions. The parser reads positional columns rather than a tidy header row.",
+          "acquisition_notes": "Retrieve the named RVD historical workbook manually. The original download URL was not preserved; retain its original XLS layout."
+        },
+        {
+          "path": "data/raw/censtatd/censtatd_cpi_composite_monthly.csv",
+          "description": "Monthly Composite Consumer Price Index.",
+          "sha256": "5adb4d1f0648222ca3d7769a14147f1a1034ab7804a25a4b97517a1da98b49a5",
+          "source_agency": "Hong Kong Census and Statistics Department (C&SD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "date",
+            "year",
+            "month",
+            "cpi_composite_index"
+          ],
+          "required_columns": [
+            "date",
+            "cpi_composite_index"
+          ],
+          "schema_notes": "date is a parseable monthly date; year and month identify the same period; cpi_composite_index is numeric.",
+          "acquisition_notes": "Manual normalization required. Convert the C&SD monthly CPI export to the recorded tidy CSV columns; the original export headers are CCYY, MM, obs_value, sd_value. The public package contains no conversion script."
+        },
+        {
+          "path": "data/raw/censtatd/censtatd_median_household_income_quarterly.csv",
+          "description": "Quarterly median monthly domestic household income in HK dollars.",
+          "sha256": "8a75c46ac466f152e159adf8e44b089f0d20bd56453ffea2664fb82c33204d38",
+          "source_agency": "Hong Kong Census and Statistics Department (C&SD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "period",
+            "year",
+            "quarter",
+            "median_monthly_household_income_hkd"
+          ],
+          "required_columns": [
+            "period",
+            "median_monthly_household_income_hkd"
+          ],
+          "schema_notes": "period is a pandas-compatible quarterly period, with optional spaces removed by the loader; year and quarter identify the same period; income is numeric HKD.",
+          "acquisition_notes": "Manual normalization required. Convert the C&SD quarterly income export to the recorded tidy CSV columns; the original export headers are CCYY, M3M, obs_value, sd_value. The public package contains no conversion script."
+        },
+        {
+          "path": "data/raw/censtatd/censtatd_midyear_population_annual.csv",
+          "description": "Annual mid-year population in persons, with a supplementary thousands column.",
+          "sha256": "97b0d230438bb266b9fbf5b693463d13e73535591bcef8dd1998d648f7e89d7a",
+          "source_agency": "Hong Kong Census and Statistics Department (C&SD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "year",
+            "midyear_population_thousands",
+            "midyear_population"
+          ],
+          "required_columns": [
+            "year",
+            "midyear_population"
+          ],
+          "schema_notes": "year is an integer calendar year; midyear_population_thousands is in thousands of persons; midyear_population is in persons.",
+          "acquisition_notes": "Manual normalization required. Select the appropriate aggregate from the C&SD population export and convert thousands of persons to persons. Original export headers are SEX, AGE, H, CCYY, obs_value, sd_value. The exact selection and conversion code was not preserved."
+        },
+        {
+          "path": "data/raw/hkma/hkd_retail_rates_monthly_period_average.csv",
+          "description": "Monthly HKD retail interest rates, including the best lending rate.",
+          "sha256": "ee4f47d7bb6254e8a5a0e711d6d0d0454e4304c46a7052866b60e74673f24bd8",
+          "source_agency": "Hong Kong Monetary Authority (HKMA)",
+          "source_urls": [
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/hkd-ir-periodaverage"
+          ],
+          "source_url_evidence": "Preserved HKMA downloader endpoint configuration.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "end_of_month",
+            "dr_1w",
+            "dr_1m",
+            "dr_3m",
+            "dr_6m",
+            "dr_12m",
+            "savings_deposit_rate",
+            "best_lending_rate"
+          ],
+          "required_columns": [
+            "end_of_month",
+            "best_lending_rate"
+          ],
+          "schema_notes": "end_of_month is a parseable monthly date; consumed rate or survey fields are numeric. Preserve the API field names recorded in csv_columns.",
+          "acquisition_notes": "Paginate the documented API endpoint using pagesize and offset, extract result.records, sort by end_of_month, and write a CSV with the recorded field names. The recorded hash is for the historical local snapshot."
+        },
+        {
+          "path": "data/raw/hkma/hibor_monthly_period_average.csv",
+          "description": "Monthly period-average HIBOR by tenor.",
+          "sha256": "4e5525c00ce22bb76c487383f5d432dc332fb30865035ebe06284219b26f57d3",
+          "source_agency": "Hong Kong Monetary Authority (HKMA)",
+          "source_urls": [
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/hk-interbank-ir-periodaverage"
+          ],
+          "source_url_evidence": "Preserved HKMA downloader endpoint configuration.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "end_of_month",
+            "ir_overnight",
+            "ir_1w",
+            "ir_1m",
+            "ir_3m",
+            "ir_6m",
+            "ir_9m",
+            "ir_12m"
+          ],
+          "required_columns": [
+            "end_of_month",
+            "ir_1m"
+          ],
+          "schema_notes": "end_of_month is a parseable monthly date; consumed rate or survey fields are numeric. Preserve the API field names recorded in csv_columns.",
+          "acquisition_notes": "Paginate the documented API endpoint using pagesize and offset, extract result.records, sort by end_of_month, and write a CSV with the recorded field names. The recorded hash is for the historical local snapshot."
+        },
+        {
+          "path": "data/raw/hkma/residential_mortgage_survey_monthly.csv",
+          "description": "Current-segment monthly residential mortgage survey; the pipeline consumes the count of newly approved loans.",
+          "sha256": "85fb4378eab429dcc3b2abf700c24ef08c54c709f867cd6e698e4110c8b35319",
+          "source_agency": "Hong Kong Monetary Authority (HKMA)",
+          "source_urls": [
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/banking/residential-mortgage-survey"
+          ],
+          "source_url_evidence": "Preserved HKMA downloader endpoint configuration.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "end_of_month",
+            "outstanding_loans_amt",
+            "outstanding_loans_amt_mom",
+            "outstanding_loans_amt_yoy",
+            "outstanding_loans_cofin_gf_amt",
+            "outstanding_loans_cofin_gf",
+            "outstanding_loans_cofin_ps_amt",
+            "outstanding_loans_cofin_ps",
+            "delinquency_ratio",
+            "delinquency_ratio_6mth",
+            "resch_loan_ratio",
+            "new_loans_app_received",
+            "new_loans_app_received_mom",
+            "new_loans_drawn_amt",
+            "new_loans_drawn_amt_mom",
+            "new_loans_drawn",
+            "new_loans_drawn_mom",
+            "new_loans_approved_amt",
+            "new_loans_approved_amt_mom",
+            "new_loans_approved",
+            "new_loans_approved_mom",
+            "new_loans_approved_avg_size",
+            "new_loans_approved_lv_ratio",
+            "new_loans_approved_contra_life",
+            "new_loans_approved_cofin_amt",
+            "new_loans_approved_cofin",
+            "new_loans_approved_pt_amt_pri",
+            "new_loans_approved_pt_amt_sec",
+            "new_loans_approved_pt_amt_refin",
+            "new_loans_approved_pt_primkt",
+            "new_loans_approved_pt_secmkt",
+            "new_loans_approved_pt_refin",
+            "new_loans_approved_undrawn_amt",
+            "new_loans_approved_undrawn",
+            "ir_new_loans_approved_hibor",
+            "ir_new_loans_approved_blr",
+            "ir_new_loans_approved_fixed",
+            "ir_new_loans_approved_other",
+            "loan_wo_amt",
+            "loan_wo_12mth_amt",
+            "loan_wo_12mth_pa_outstand_loans"
+          ],
+          "required_columns": [
+            "end_of_month",
+            "new_loans_approved"
+          ],
+          "schema_notes": "end_of_month is a parseable monthly date; consumed rate or survey fields are numeric. Preserve the API field names recorded in csv_columns.",
+          "acquisition_notes": "Paginate the documented API endpoint using pagesize and offset, extract result.records, sort by end_of_month, and write a CSV with the recorded field names. The recorded hash is for the historical local snapshot."
+        },
+        {
+          "path": "data/raw/hkma/residential_mortgage_survey_monthly_old.csv",
+          "description": "Old-segment monthly residential mortgage survey; used before the current-segment start.",
+          "sha256": "b6b1635513a7b9aa1415fb9c498b4e54f7ee1f1a7cb93eb19189ce232c0083dd",
+          "source_agency": "Hong Kong Monetary Authority (HKMA)",
+          "source_urls": [
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/banking/residential-mortgage-survey?segment=old"
+          ],
+          "source_url_evidence": "Preserved HKMA downloader endpoint configuration.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "end_of_month",
+            "outstanding_loans_amt",
+            "delinquency_ratio",
+            "resch_loan_ratio",
+            "new_loans_drawn",
+            "new_loans_drawn_amt",
+            "new_loans_approved",
+            "new_loans_approved_amt",
+            "new_loans_approved_undrawn",
+            "new_loans_approved_undrawn_amt"
+          ],
+          "required_columns": [
+            "end_of_month",
+            "new_loans_approved"
+          ],
+          "schema_notes": "end_of_month is a parseable monthly date; consumed rate or survey fields are numeric. Preserve the API field names recorded in csv_columns.",
+          "acquisition_notes": "Paginate the documented API endpoint using pagesize and offset, extract result.records, sort by end_of_month, and write a CSV with the recorded field names. The recorded hash is for the historical local snapshot."
+        },
+        {
+          "path": "data/raw/hkma/hibor_monthly_end_period.csv",
+          "description": "Monthly end-period HIBOR, used by the robustness analysis.",
+          "sha256": "8d659b17eb6895904a90768536b6759482c316d12d6538a7cf7279c5283af9e6",
+          "source_agency": "Hong Kong Monetary Authority (HKMA)",
+          "source_urls": [
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/hk-interbank-ir-endperiod"
+          ],
+          "source_url_evidence": "Preserved HKMA downloader endpoint configuration.",
+          "consumed_by": [
+            "src/run_robustness.py"
+          ],
+          "csv_columns": [
+            "end_of_month",
+            "ir_overnight",
+            "ir_1w",
+            "ir_1m",
+            "ir_3m",
+            "ir_6m",
+            "ir_9m",
+            "ir_12m"
+          ],
+          "required_columns": [
+            "end_of_month",
+            "ir_1m"
+          ],
+          "schema_notes": "end_of_month is a parseable monthly date; consumed rate or survey fields are numeric. Preserve the API field names recorded in csv_columns.",
+          "acquisition_notes": "Paginate the documented API endpoint using pagesize and offset, extract result.records, sort by end_of_month, and write a CSV with the recorded field names. The recorded hash is for the historical local snapshot."
+        },
+        {
+          "path": "data/raw/hkma/composite_interest_rate_monthly.csv",
+          "description": "Monthly composite interest rate, combining old and new methodology segments.",
+          "sha256": "32a86121895c74b430ff6b850c5bed8c27f7bdd8e530412d757a09d7ff360340",
+          "source_agency": "Hong Kong Monetary Authority (HKMA)",
+          "source_urls": [
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/composite-ir?segment=old",
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/composite-ir?segment=new"
+          ],
+          "source_url_evidence": "Preserved HKMA downloader endpoint configuration.",
+          "consumed_by": [
+            "src/run_robustness.py"
+          ],
+          "csv_columns": [
+            "end_of_month",
+            "interest_rate",
+            "segment"
+          ],
+          "required_columns": [
+            "end_of_month",
+            "interest_rate"
+          ],
+          "schema_notes": "end_of_month is a parseable monthly date; consumed rate or survey fields are numeric. Preserve the API field names recorded in csv_columns.",
+          "acquisition_notes": "Combine the old and new HKMA API segments, add the segment column, and sort by end_of_month. Segment labels document the methodology change; the recorded hash refers to the combined snapshot."
+        },
+        {
+          "path": "data/raw/landreg/landreg_residential_sp_monthly.csv",
+          "description": "Monthly residential sale and purchase agreement count and consideration.",
+          "sha256": "f22108b908fc17edb3639d3a6a6e85cea41989045c9e8f04dfb732ec9f9b2dd3",
+          "source_agency": "Hong Kong Land Registry",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "month",
+            "residential_agreements_count",
+            "residential_consideration_hkd_mn"
+          ],
+          "required_columns": [
+            "month",
+            "residential_agreements_count",
+            "residential_consideration_hkd_mn"
+          ],
+          "schema_notes": "month is a parseable monthly date; residential_agreements_count is the agreement count; residential_consideration_hkd_mn is consideration in millions of HK dollars.",
+          "acquisition_notes": "Manual normalization required. Extract the residential sale and purchase agreement count and consideration from Land Registry monthly statistics into the recorded columns. No acquisition or normalization script was preserved."
+        },
+        {
+          "path": "data/raw/fred/FEDFUNDS.csv",
+          "description": "Monthly effective federal funds rate.",
+          "sha256": "0a1b79cc3c3ecb43a2b32236a17492750617ee7b901ba0b6888c5dfc46aa70b8",
+          "source_agency": "FRED",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "observation_date",
+            "FEDFUNDS"
+          ],
+          "required_columns": [
+            "observation_date",
+            "FEDFUNDS"
+          ],
+          "schema_notes": "observation_date is a parseable monthly date; FEDFUNDS is the numeric rate series.",
+          "acquisition_notes": "Retrieve the named FRED series as a monthly CSV with observation_date and the series-code column. The original download URL was not preserved."
+        }
+      ]
+    },
+    "office": {
+      "directory": "hk-office",
+      "required_input_count": 13,
+      "inputs": [
+        {
+          "path": "data/raw/rvd/his_data_8.xls",
+          "description": "Private office rental indices by grade.",
+          "sha256": "5f2adef09b190066215696708b420bbfbe70372cad12e4c5662882365b169d2e",
+          "source_agency": "Hong Kong Rating and Valuation Department (RVD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "xls_sheets": [
+            "Monthly  按月",
+            "Quarterly  按季",
+            "Annual  按年"
+          ],
+          "required_sheets": [
+            "Monthly  按月",
+            "Quarterly  按季",
+            "Annual  按年"
+          ],
+          "schema_notes": "Retain the agency workbook layout, sheet names and merged-cell positions. The parser reads positional columns rather than a tidy header row.",
+          "acquisition_notes": "Retrieve the named RVD historical workbook manually. The original download URL was not preserved; retain its original XLS layout."
+        },
+        {
+          "path": "data/raw/rvd/his_data_9.xls",
+          "description": "Private office price indices by grade.",
+          "sha256": "d4f8aba66332ad5cd900b9d90a10d1849b695f82502177c589bf3d7a551c8d4e",
+          "source_agency": "Hong Kong Rating and Valuation Department (RVD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "xls_sheets": [
+            "Monthly  按月",
+            "Quarterly  按季",
+            "Annual  按年"
+          ],
+          "required_sheets": [
+            "Monthly  按月",
+            "Quarterly  按季",
+            "Annual  按年"
+          ],
+          "schema_notes": "Retain the agency workbook layout, sheet names and merged-cell positions. The parser reads positional columns rather than a tidy header row.",
+          "acquisition_notes": "Retrieve the named RVD historical workbook manually. The original download URL was not preserved; retain its original XLS layout."
+        },
+        {
+          "path": "data/raw/rvd/his_data_10.xls",
+          "description": "Core-district Grade A office rent and price indices.",
+          "sha256": "44802abb867dc7ab1f575fc32ad20c551534b690f4a237e76923344f429c42c6",
+          "source_agency": "Hong Kong Rating and Valuation Department (RVD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "xls_sheets": [
+            "Monthly  按月",
+            "Quarterly  按季",
+            "Annual  按年"
+          ],
+          "required_sheets": [
+            "Monthly  按月"
+          ],
+          "schema_notes": "Retain the agency workbook layout, sheet names and merged-cell positions. The parser reads positional columns rather than a tidy header row.",
+          "acquisition_notes": "Retrieve the named RVD historical workbook manually. The original download URL was not preserved; retain its original XLS layout."
+        },
+        {
+          "path": "data/raw/rvd/his_data_6.xls",
+          "description": "Office average rents by grade and district; monthly and annual analysis inputs.",
+          "sha256": "00e860a5b56fe1ee714eeb7af6e439ec0df0d500476e86c825bd6712079cf27e",
+          "source_agency": "Hong Kong Rating and Valuation Department (RVD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "xls_sheets": [
+            "Monthly  按月",
+            "Quarterly(82-98)  按季(82-98)",
+            "Quarterly(from 99)  按季(自99年起)",
+            "Annual(86-98)  按年(86-98)",
+            "Annual(from 99)  按年(自99年起)"
+          ],
+          "required_sheets": [
+            "Monthly  按月",
+            "Annual(86-98)  按年(86-98)",
+            "Annual(from 99)  按年(自99年起)"
+          ],
+          "schema_notes": "Retain the agency workbook layout, sheet names and merged-cell positions. The parser reads positional columns rather than a tidy header row.",
+          "acquisition_notes": "Retrieve the named RVD historical workbook manually. The original download URL was not preserved; retain its original XLS layout."
+        },
+        {
+          "path": "data/raw/rvd/his_data_7.xls",
+          "description": "Office average prices by grade and district; monthly and annual analysis inputs.",
+          "sha256": "4a1d5bee86b93c0b99aee97c3cabcddccc9e554fa8fcf11d422a0a1888ef9f89",
+          "source_agency": "Hong Kong Rating and Valuation Department (RVD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "xls_sheets": [
+            "Monthly  按月",
+            "Quarterly(82-98)  按季(82-98)",
+            "Quarterly(from 99)  按季(自99年起)",
+            "Annual(86-98)  按年(86-98)",
+            "Annual(from 99)  按年(自99年起)"
+          ],
+          "required_sheets": [
+            "Monthly  按月",
+            "Annual(86-98)  按年(86-98)",
+            "Annual(from 99)  按年(自99年起)"
+          ],
+          "schema_notes": "Retain the agency workbook layout, sheet names and merged-cell positions. The parser reads positional columns rather than a tidy header row.",
+          "acquisition_notes": "Retrieve the named RVD historical workbook manually. The original download URL was not preserved; retain its original XLS layout."
+        },
+        {
+          "path": "data/raw/rvd/private_office.xls",
+          "description": "Annual private office completions, stock, vacancy and take-up by grade.",
+          "sha256": "ea0a184f385b17a8f5ed56e247baf4fd52cd6cb4b314e2446288fe5f5798e0ff",
+          "source_agency": "Hong Kong Rating and Valuation Department (RVD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "xls_sheets": [
+            "Completions_落成量",
+            "Stock_總存量",
+            "Vacancy_空置量",
+            "Take-Up_使用量"
+          ],
+          "required_sheets": [
+            "Completions_落成量",
+            "Stock_總存量",
+            "Vacancy_空置量",
+            "Take-Up_使用量"
+          ],
+          "schema_notes": "Retain the agency workbook layout, sheet names and merged-cell positions. The parser reads positional columns rather than a tidy header row.",
+          "acquisition_notes": "Retrieve the named RVD historical workbook manually. The original download URL was not preserved; retain its original XLS layout."
+        },
+        {
+          "path": "data/raw/censtatd/censtatd_cpi_composite_monthly.csv",
+          "description": "Monthly Composite Consumer Price Index.",
+          "sha256": "5adb4d1f0648222ca3d7769a14147f1a1034ab7804a25a4b97517a1da98b49a5",
+          "source_agency": "Hong Kong Census and Statistics Department (C&SD)",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "date",
+            "year",
+            "month",
+            "cpi_composite_index"
+          ],
+          "required_columns": [
+            "date",
+            "cpi_composite_index"
+          ],
+          "schema_notes": "date is a parseable monthly date; year and month identify the same period; cpi_composite_index is numeric.",
+          "acquisition_notes": "Manual normalization required. Convert the C&SD monthly CPI export to the recorded tidy CSV columns; the original export headers are CCYY, MM, obs_value, sd_value. The public package contains no conversion script."
+        },
+        {
+          "path": "data/raw/hkma/hibor_monthly_period_average.csv",
+          "description": "Monthly period-average HIBOR by tenor.",
+          "sha256": "4e5525c00ce22bb76c487383f5d432dc332fb30865035ebe06284219b26f57d3",
+          "source_agency": "Hong Kong Monetary Authority (HKMA)",
+          "source_urls": [
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/hk-interbank-ir-periodaverage"
+          ],
+          "source_url_evidence": "Preserved HKMA downloader endpoint configuration.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "end_of_month",
+            "ir_overnight",
+            "ir_1w",
+            "ir_1m",
+            "ir_3m",
+            "ir_6m",
+            "ir_9m",
+            "ir_12m"
+          ],
+          "required_columns": [
+            "end_of_month",
+            "ir_1m",
+            "ir_3m"
+          ],
+          "schema_notes": "end_of_month is a parseable monthly date; consumed rate or survey fields are numeric. Preserve the API field names recorded in csv_columns.",
+          "acquisition_notes": "Paginate the documented API endpoint using pagesize and offset, extract result.records, sort by end_of_month, and write a CSV with the recorded field names. The recorded hash is for the historical local snapshot."
+        },
+        {
+          "path": "data/raw/hkma/hkd_retail_rates_monthly_period_average.csv",
+          "description": "Monthly HKD retail interest rates, including the best lending rate.",
+          "sha256": "ee4f47d7bb6254e8a5a0e711d6d0d0454e4304c46a7052866b60e74673f24bd8",
+          "source_agency": "Hong Kong Monetary Authority (HKMA)",
+          "source_urls": [
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/hkd-ir-periodaverage"
+          ],
+          "source_url_evidence": "Preserved HKMA downloader endpoint configuration.",
+          "consumed_by": [
+            "src/pipeline.py",
+            "src/longrun.py"
+          ],
+          "csv_columns": [
+            "end_of_month",
+            "dr_1w",
+            "dr_1m",
+            "dr_3m",
+            "dr_6m",
+            "dr_12m",
+            "savings_deposit_rate",
+            "best_lending_rate"
+          ],
+          "required_columns": [
+            "end_of_month",
+            "best_lending_rate"
+          ],
+          "schema_notes": "end_of_month is a parseable monthly date; consumed rate or survey fields are numeric. Preserve the API field names recorded in csv_columns.",
+          "acquisition_notes": "Paginate the documented API endpoint using pagesize and offset, extract result.records, sort by end_of_month, and write a CSV with the recorded field names. The recorded hash is for the historical local snapshot."
+        },
+        {
+          "path": "data/raw/hkma/composite_interest_rate_monthly.csv",
+          "description": "Monthly composite interest rate, combining old and new methodology segments.",
+          "sha256": "32a86121895c74b430ff6b850c5bed8c27f7bdd8e530412d757a09d7ff360340",
+          "source_agency": "Hong Kong Monetary Authority (HKMA)",
+          "source_urls": [
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/composite-ir?segment=old",
+            "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/composite-ir?segment=new"
+          ],
+          "source_url_evidence": "Preserved HKMA downloader endpoint configuration.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "end_of_month",
+            "interest_rate",
+            "segment"
+          ],
+          "required_columns": [
+            "end_of_month",
+            "interest_rate"
+          ],
+          "schema_notes": "end_of_month is a parseable monthly date; consumed rate or survey fields are numeric. Preserve the API field names recorded in csv_columns.",
+          "acquisition_notes": "Combine the old and new HKMA API segments, add the segment column, and sort by end_of_month. Segment labels document the methodology change; the recorded hash refers to the combined snapshot."
+        },
+        {
+          "path": "data/raw/fred/FEDFUNDS.csv",
+          "description": "Monthly effective federal funds rate.",
+          "sha256": "0a1b79cc3c3ecb43a2b32236a17492750617ee7b901ba0b6888c5dfc46aa70b8",
+          "source_agency": "FRED",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "observation_date",
+            "FEDFUNDS"
+          ],
+          "required_columns": [
+            "observation_date",
+            "FEDFUNDS"
+          ],
+          "schema_notes": "observation_date is a parseable monthly date; FEDFUNDS is the numeric rate series.",
+          "acquisition_notes": "Retrieve the named FRED series as a monthly CSV with observation_date and the series-code column. The original download URL was not preserved."
+        },
+        {
+          "path": "data/raw/fred/GS10.csv",
+          "description": "Monthly US ten-year Treasury yield.",
+          "sha256": "e3a7ad6be1044cb19cd8806bf0b649b1ff1528a7017bb0387211d3ff19f32bf5",
+          "source_agency": "FRED",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "observation_date",
+            "GS10"
+          ],
+          "required_columns": [
+            "observation_date",
+            "GS10"
+          ],
+          "schema_notes": "observation_date is a parseable monthly date; GS10 is the numeric yield series.",
+          "acquisition_notes": "Retrieve the named FRED series as a monthly CSV with observation_date and the series-code column. The original download URL was not preserved."
+        },
+        {
+          "path": "data/raw/worldbank/hkg_gdp_constant_lcu.csv",
+          "description": "Annual Hong Kong real GDP in constant local currency units.",
+          "sha256": "84cc4b054616450885ccbb6919c0d23c7f678f30fd4fae1711649b066bbcda2d",
+          "source_agency": "World Bank",
+          "source_urls": [],
+          "source_url_evidence": "No source URL was preserved in the reviewed local scripts, documentation, or source text.",
+          "consumed_by": [
+            "src/pipeline.py"
+          ],
+          "csv_columns": [
+            "year",
+            "gdp_constant_lcu"
+          ],
+          "required_columns": [
+            "year",
+            "gdp_constant_lcu"
+          ],
+          "schema_notes": "year is an integer calendar year; gdp_constant_lcu is numeric constant-local-currency GDP.",
+          "acquisition_notes": "Manual normalization required. Convert the World Bank Hong Kong annual constant-local-currency GDP response into year and gdp_constant_lcu columns. No acquisition or normalization script was preserved."
+        }
+      ]
+    }
+  }
+}

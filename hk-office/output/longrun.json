@@ -1,0 +1,107 @@
+{
+  "n_interp": {
+    "lp_A": 7,
+    "lp_ALL": 8,
+    "lpr_A": 7,
+    "lpr_ALL": 8,
+    "lp_real_A": 7,
+    "lp_real_ALL": 8
+  },
+  "bounds_lpr_A_real_hibor": {
+    "y": "lpr_A",
+    "x": "real_hibor",
+    "n": 358,
+    "F_PSS": 3.314090237474009,
+    "k": 1,
+    "F_p_lower": 0.17254286352304193,
+    "F_p_upper": 0.26786585525099704,
+    "F_cv95_lower": 4.9228967,
+    "F_cv95_upper": 5.7217442,
+    "ec_coef": -0.031215374132089302,
+    "ec_t": -2.51179102960454,
+    "longrun_semi_elasticity": -0.06591772912908139,
+    "half_life_months": 21.856908510658247
+  },
+  "dols_lpr_A_real_hibor": {
+    "y": "lpr_A",
+    "x": "real_hibor",
+    "n": 349,
+    "beta": -0.05740968280028272,
+    "se_HAC": 0.008564328687467461,
+    "t": -6.703348843242401
+  },
+  "bounds_lpr_ALL_real_hibor": {
+    "y": "lpr_ALL",
+    "x": "real_hibor",
+    "n": 358,
+    "F_PSS": 4.262783268015493,
+    "k": 1,
+    "F_p_lower": 0.08312620458650011,
+    "F_p_upper": 0.14265479895365218,
+    "F_cv95_lower": 4.9228967,
+    "F_cv95_upper": 5.7217442,
+    "ec_coef": -0.021148491893025517,
+    "ec_t": -2.6933555676974583,
+    "longrun_semi_elasticity": -0.08710101369441478,
+    "half_life_months": 32.427445119550484
+  },
+  "dols_lpr_ALL_real_hibor": {
+    "y": "lpr_ALL",
+    "x": "real_hibor",
+    "n": 349,
+    "beta": -0.06590376913927386,
+    "se_HAC": 0.009356691150994242,
+    "t": -7.043490917435158
+  },
+  "bounds_lpr_A_real_gs10": {
+    "y": "lpr_A",
+    "x": "real_gs10",
+    "n": 388,
+    "F_PSS": 1.0455500847482346,
+    "k": 1,
+    "F_p_lower": 0.7051157295256185,
+    "F_p_upper": 0.8111464741982611,
+    "F_cv95_lower": 4.9228967,
+    "F_cv95_upper": 5.7217442,
+    "ec_coef": -0.008688882841424335,
+    "ec_t": -0.7356689795083945,
+    "longrun_semi_elasticity": 0.054646525560122124,
+    "half_life_months": 79.42695003757316
+  },
+  "dols_lpr_A_real_gs10": {
+    "y": "lpr_A",
+    "x": "real_gs10",
+    "n": 379,
+    "beta": -0.05716378906461077,
+    "se_HAC": 0.010401888703241382,
+    "t": -5.495520159410828
+  },
+  "campbell_shiller": {
+    "freq": "quarterly",
+    "n": 160,
+    "var_lags": 2,
+    "rho": 0.9887355377980104,
+    "sample": [
+      "1986Q2",
+      "2026Q1"
+    ],
+    "mean_yield_annual": 0.04557118368406794,
+    "share_rent_growth": -0.09289152218828989,
+    "share_expected_returns": 1.0928915221882898,
+    "share_riskfree": -0.1500684343427528,
+    "share_risk_premium": 1.2429599565310425,
+    "ci_rent": [
+      -0.7174153056903642,
+      0.6148187162259833
+    ],
+    "ci_returns": [
+      0.38518128377401667,
+      1.7174153056903638
+    ],
+    "ci_riskfree": [
+      -0.5421703129103712,
+      0.31047661257372516
+    ],
+    "n_boot_ok": 1000
+  }
+}
